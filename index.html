@@ -1,0 +1,535 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>CC14 CITCS-2N Group B - Photography Portfolio</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Arial', sans-serif;
+            background: linear-gradient(135deg, #1a1a1a 0%, #2d1b2e 50%, #1a1a1a 100%);
+            min-height: 100vh;
+            color: white;
+            overflow-x: hidden;
+        }
+
+        .header {
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            z-index: 1000;
+            padding: 20px 50px;
+            background: rgba(0, 0, 0, 0.3);
+            backdrop-filter: blur(10px);
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .logo {
+            font-size: 24px;
+            font-weight: bold;
+            color: #ff6b6b;
+        }
+
+        .nav {
+            display: flex;
+            gap: 30px;
+            list-style: none;
+        }
+
+        .nav a {
+            color: white;
+            text-decoration: none;
+            font-size: 16px;
+            transition: color 0.3s ease;
+            position: relative;
+        }
+
+        .nav a:hover {
+            color: #ff6b6b;
+        }
+
+        .nav a.active {
+            color: #ff6b6b;
+        }
+
+        .search-icon {
+            width: 20px;
+            height: 20px;
+            cursor: pointer;
+            fill: white;
+            transition: fill 0.3s ease;
+        }
+
+        .search-icon:hover {
+            fill: #ff6b6b;
+        }
+
+        .main-content {
+            position: relative;
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            padding: 0 50px;
+            background: url('file:///C:/Users/eyzi8/Downloads/asd1.jpg') no-repeat center center;
+            background-size: cover;
+            background-attachment: fixed;
+        }
+
+        .main-content::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: rgba(0, 0, 0, 0.5);
+            z-index: 1;
+        }
+
+        .content-wrapper {
+            max-width: 1200px;
+            width: 100%;
+            margin: 0 auto;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+
+        .text-content {
+            z-index: 2;
+            position: relative;
+            text-align: left;
+            max-width: 600px;
+            margin-left: 100px;
+            margin-right: auto;
+        }
+
+        .greeting {
+            font-size: 4rem;
+            font-weight: 300;
+            color: #ff9999;
+            margin-bottom: 10px;
+            text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5);
+        }
+
+        .name {
+            font-size: 6rem;
+            font-weight: bold;
+            color: #ffcc99;
+            margin-bottom: 30px;
+            text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5);
+        }
+
+        .description {
+            font-size: 16px;
+            line-height: 1.6;
+            color: #cccccc;
+            margin-bottom: 40px;
+            max-width: 500px;
+        }
+
+        .cta-section {
+            display: flex;
+            align-items: center;
+            gap: 30px;
+        }
+
+        .email {
+            color: #cccccc;
+            font-style: italic;
+            font-size: 16px;
+        }
+
+        /* Image Section */
+        .image-section {
+            position: relative;
+            height: 600px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .person-image {
+            width: 400px;
+            height: 500px;
+            background: linear-gradient(45deg, #ff6b6b, #4ecdc4, #45b7d1);
+            border-radius: 20px;
+            position: relative;
+            overflow: hidden;
+            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.3);
+            transform: rotate(-2deg);
+        }
+
+        .person-image::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 400 500"><rect width="100%" height="100%" fill="%23333"/><circle cx="200" cy="150" r="60" fill="%23666"/><rect x="150" y="250" width="100" height="150" fill="%23555"/><text x="200" y="400" text-anchor="middle" fill="%23999" font-size="20">Jackson</text></svg>');
+            background-size: cover;
+            opacity: 0.7;
+        }
+
+        .nav-arrow {
+            position: absolute;
+            top: 50%;
+            transform: translateY(-50%);
+            width: 50px;
+            height: 50px;
+            background: rgba(255, 255, 255, 0.1);
+            border: 2px solid rgba(255, 255, 255, 0.3);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            z-index: 10;
+        }
+
+        .nav-arrow:hover {
+            background: rgba(255, 107, 107, 0.2);
+            border-color: #ff6b6b;
+        }
+
+        .nav-arrow.left {
+            left: 20px;
+        }
+
+        .nav-arrow.right {
+            right: 20px;
+        }
+
+        .nav-arrow::after {
+            content: '';
+            width: 12px;
+            height: 12px;
+            border: 2px solid white;
+            border-bottom: none;
+            border-left: none;
+            transform: rotate(-45deg);
+        }
+
+        .nav-arrow.left::after {
+            transform: rotate(135deg);
+        }
+
+        /* Page Sections */
+        .page-section {
+            display: none;
+            min-height: 100vh;
+            padding: 100px 50px 50px;
+            background: linear-gradient(135deg, #1a1a1a 0%, #2d1b2e 50%, #1a1a1a 100%);
+        }
+
+        .page-section.active {
+            display: block;
+        }
+
+        .page-content {
+            max-width: 800px;
+            margin: 0 auto;
+            color: white;
+        }
+
+        .page-title {
+            font-size: 3rem;
+            color: #ff9999;
+            margin-bottom: 30px;
+            text-align: center;
+        }
+
+        .page-text {
+            font-size: 18px;
+            line-height: 1.8;
+            color: #cccccc;
+            margin-bottom: 30px;
+        }
+
+        .contact-info {
+            background: rgba(255, 255, 255, 0.05);
+            padding: 30px;
+            border-radius: 15px;
+            margin: 20px 0;
+        }
+
+        .contact-item {
+            display: flex;
+            align-items: center;
+            margin: 20px 0;
+            font-size: 18px;
+        }
+
+        .contact-item i {
+            width: 30px;
+            height: 30px;
+            background: #ff6b6b;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin-right: 20px;
+            color: white;
+        }
+
+        .contact-item a {
+            color: #ff6b6b;
+            text-decoration: none;
+            transition: color 0.3s ease;
+        }
+
+        .contact-item a:hover {
+            color: #ff9999;
+        }
+
+        .back-btn {
+            background: transparent;
+            border: 2px solid #ff6b6b;
+            color: #ff6b6b;
+            padding: 10px 20px;
+            border-radius: 25px;
+            cursor: pointer;
+            font-size: 16px;
+            transition: all 0.3s ease;
+            margin-top: 30px;
+        }
+
+        .back-btn:hover {
+            background: #ff6b6b;
+            color: white;
+        }
+        .decorative-text {
+            position: absolute;
+            right: 100px;
+            top: 50%;
+            transform: translateY(-50%) rotate(90deg);
+            font-size: 8rem;
+            font-weight: bold;
+            color: rgba(255, 255, 255, 0.05);
+            z-index: 1;
+            pointer-events: none;
+        }
+
+        @media (max-width: 768px) {
+            .header {
+                padding: 15px 20px;
+            }
+
+            .nav {
+                gap: 20px;
+            }
+
+            .main-content {
+                padding: 0 20px;
+            }
+
+            .text-content {
+                margin: 0 auto;
+                text-align: center;
+            }
+
+            .name {
+                font-size: 3.5rem;
+            }
+
+            .greeting, .name {
+                font-size: 2.5rem;
+            }
+
+            .person-image {
+                width: 300px;
+                height: 400px;
+            }
+
+            .decorative-text {
+                display: none;
+            }
+
+            .logo {
+                font-size: 18px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <header class="header">
+        <div class="logo">CC14 CITCS-2N Group B</div>
+        <nav>
+            <ul class="nav">
+                <li><a href="#home" class="active">Home</a></li>
+                <li><a href="#about">About</a></li>
+                <li><a href="#contact">Contact</a></li>
+            </ul>
+        </nav>
+        <svg class="search-icon" viewBox="0 0 24 24">
+            <path d="M15.5 14h-.79l-.28-.27C15.41 12.59 16 11.11 16 9.5 16 5.91 13.09 3 9.5 3S3 5.91 3 9.5 5.91 16 9.5 16c1.61 0 3.09-.59 4.23-1.57l.27.28v.79l5 4.99L20.49 19l-4.99-5zm-6 0C7.01 14 5 11.99 5 9.5S7.01 5 9.5 5 14 7.01 14 9.5 11.99 14 9.5 14z"/>
+        </svg>
+    </header>
+
+    <main class="main-content" id="home">
+        <div class="content-wrapper">
+            <div class="text-content">
+                <h1 class="greeting">Hello</h1>
+                <h2 class="name">I'm Justin</h2>
+                <p class="description">
+                    I photograph very instinctively. I see how it is taken like that. I do not follow certain styles, philosophies or teachers.
+                </p>
+                <div class="cta-section">
+                    <span class="email">justinbengao@gmail.com</span>
+                </div>
+            </div>
+        </div>
+
+        <div class="nav-arrow left"></div>
+        <div class="nav-arrow right"></div>
+        
+        <div class="decorative-text">PORTFOLIO</div>
+    </main>
+
+    <section class="page-section" id="about">
+        <div class="page-content">
+            <h1 class="page-title">About Me</h1>
+            <div class="page-text">
+                <p>Hi there! I'm <strong>Justin Bengao</strong>, a passionate photographer and web developer currently studying at the University of the Cordilleras, pursuing a Bachelor of Science in Information Technology (BSIT) with a specialization in web development.</p>
+                
+                <p>My journey in technology and creativity goes hand in hand. While I'm diving deep into the world of web development, learning the latest technologies and frameworks, I also have a deep love for photography. I believe that both fields share a common thread - they're about capturing moments, creating experiences, and bringing visions to life.</p>
+                
+                <p>When I'm not coding or behind the camera, you'll find me embracing the great outdoors. I'm an adventure enthusiast who loves exploring new places and capturing the beauty of nature through my lens. Most of my free time is spent playing outdoor sports and hiking through scenic trails, always with my camera ready to capture that perfect shot.</p>
+                
+                <p>My approach to photography is instinctive and authentic - I don't follow rigid rules or specific styles. Instead, I let the moment guide me, capturing genuine emotions and natural beauty as I see them. This same philosophy carries over to my web development work, where I focus on creating intuitive, user-friendly experiences.</p>
+                
+                <p>Whether it's developing a website or capturing a moment in time, I'm passionate about creating something meaningful that connects with people.</p>
+            </div>
+            <button class="back-btn" onclick="showSection('home')">Back to Home</button>
+        </div>
+    </section>
+
+    <section class="page-section" id="contact">
+        <div class="page-content">
+            <h1 class="page-title">Get In Touch</h1>
+            <div class="page-text">
+                <p>I'd love to hear from you! Whether you're interested in my photography work, need web development services, or just want to connect, feel free to reach out through any of the channels below.</p>
+            </div>
+            
+            <div class="contact-info">
+                <div class="contact-item">
+                    <i>📱</i>
+                    <div>
+                        <strong>Phone:</strong> <a href="tel:09993834364">09993834364</a>
+                    </div>
+                </div>
+                
+                <div class="contact-item">
+                    <i>📧</i>
+                    <div>
+                        <strong>Email:</strong> <a href="mailto:justinbengao@gmail.com">justinbengao@gmail.com</a>
+                    </div>
+                </div>
+                
+                <div class="contact-item">
+                    <i>👤</i>
+                    <div>
+                        <strong>Facebook:</strong> <a href="https://www.facebook.com/B3ngao" target="_blank">facebook.com/B3ngao</a>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="page-text">
+                <p>I'm always excited to collaborate on new projects, discuss photography opportunities, or chat about web development. Don't hesitate to reach out!</p>
+            </div>
+            
+            <button class="back-btn" onclick="showSection('home')">Back to Home</button>
+        </div>
+    </section>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            function showSection(sectionId) {
+                const sections = document.querySelectorAll('.main-content, .page-section');
+                sections.forEach(section => {
+                    section.classList.remove('active');
+                    section.style.display = 'none';
+                });
+                
+                const targetSection = document.getElementById(sectionId);
+                if (targetSection) {
+                    if (sectionId === 'home') {
+                        targetSection.style.display = 'flex';
+                    } else {
+                        targetSection.style.display = 'block';
+                        targetSection.classList.add('active');
+                    }
+                }
+                
+                const navLinks = document.querySelectorAll('.nav a');
+                navLinks.forEach(link => {
+                    link.classList.remove('active');
+                    if (link.getAttribute('href') === '#' + sectionId) {
+                        link.classList.add('active');
+                    }
+                });
+            }
+            
+            window.showSection = showSection;
+            
+            document.querySelectorAll('.nav a').forEach(link => {
+                link.addEventListener('click', function(e) {
+                    e.preventDefault();
+                    const targetId = this.getAttribute('href').substring(1);
+                    showSection(targetId);
+                });
+            });
+
+            const navLinks = document.querySelectorAll('.nav a');
+            navLinks.forEach(link => {
+                link.addEventListener('mouseenter', function() {
+                    this.style.transform = 'translateY(-2px)';
+                });
+                link.addEventListener('mouseleave', function() {
+                    this.style.transform = 'translateY(0)';
+                });
+            });
+
+            const leftArrow = document.querySelector('.nav-arrow.left');
+            const rightArrow = document.querySelector('.nav-arrow.right');
+            
+            if (leftArrow) {
+                leftArrow.addEventListener('click', function() {
+                    this.style.transform = 'translateY(-50%) scale(0.9)';
+                    setTimeout(() => {
+                        this.style.transform = 'translateY(-50%) scale(1)';
+                    }, 150);
+                });
+            }
+
+            if (rightArrow) {
+                rightArrow.addEventListener('click', function() {
+                    this.style.transform = 'translateY(-50%) scale(0.9)';
+                    setTimeout(() => {
+                        this.style.transform = 'translateY(-50%) scale(1)';
+                    }, 150);
+                });
+            }
+
+            window.addEventListener('scroll', function() {
+                const decorativeText = document.querySelector('.decorative-text');
+                if (decorativeText) {
+                    const scrolled = window.pageYOffset;
+                    decorativeText.style.transform = `translateY(-50%) rotate(90deg) translateX(${scrolled * 0.3}px)`;
+                }
+            });
+        });
+    </script>
+</body>
+</html>
